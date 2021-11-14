@@ -1,0 +1,13 @@
+{
+    "chrome": {
+        "default": "83.0",
+        "versions": {
+            "83.0": {
+                "image": "selenoid/chrome:latest",
+                "port": "4444",
+                "path": "/",
+                "additionalNetworks": ["project_qa_default"]
+            }
+        }
+    }
+}
