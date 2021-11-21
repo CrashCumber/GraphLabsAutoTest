@@ -1,9 +1,9 @@
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver import ActionChains
-from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from ui.locators.locators import BaseLocators
+import json
 
 RETRY_COUNT = 2
 
@@ -59,8 +59,14 @@ class BasePage:
         else:
             self.driver.switch_to.alert.cancel()
 
+    def switch_to_frame(self, locator, timeout=1):
+        self.driver.switch_to.frame(self.wait(timeout).until(EC.presence_of_element_located(locator)))
+
     def wait(self, timeout=None):
         if timeout is None:
             timeout = 3
         return WebDriverWait(self.driver, timeout=timeout)
+
+    def get_storage(self, key="components"):
+        return self.driver.execute_script("return window.sessionStorage.getItem(arguments[0]);", key)
 

@@ -1,9 +1,7 @@
-import pytest
 from ui.fixtures import *
 from ui.pages.base_page import BasePage
 from ui.pages.reg_page import RegPage
 from ui.pages.main_page import MainPage
-import requests
 
 
 class BaseCase:
@@ -17,7 +15,4 @@ class BaseCase:
         self.reg_page: RegPage = request.getfixturevalue('reg_page')
         self.main_page: MainPage = request.getfixturevalue('main_page')
         self.module18_page: MainPage = request.getfixturevalue('module18_page')
-
-
-
 

@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 
 def pytest_addoption(parser):
-    parser.addoption('--url', default='http://localhost:3000')
+    parser.addoption('--url', default='http://gl-backend.svtz.ru:5050')
     parser.addoption('--browser', default='chrome')
     parser.addoption('--browser_ver', default='latest')
     parser.addoption('--selenoid', default=None)

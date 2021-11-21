@@ -24,18 +24,19 @@ class MainPageLocators(BaseLocators):
 class Module18PageLocators(BaseLocators):
     ##  http://gl-backend.svtz.ru:5050/modules/18
 
+    FRAME = (By.XPATH, '/html/body/div/div/div[2]/div/iframe')
     BUTTONS = (By.XPATH, '//div[contains(@class,"btn-success")]')
 
     HELP_BUTTON = (By.XPATH, "//img[@src=\"http://gl-backend.svtz.ru:5000/odata/downloadImage(name='Help.png')\"]")
-    HELP_INFO = (By.XPATH, "//img[@src=\"http://gl-backend.svtz.ru:5000/odata/downloadImage(name='Help.png')\"]")
+    HELP_INFO = (By.XPATH, "/html/body/div/div/div/div[1]/div[3]/div/div[2]/div[1]")
 
     DONE_BUTTON = (By.XPATH, "//img[@src=\"http://gl-backend.svtz.ru:5000/odata/downloadImage(name='Complete.png')\"]")
 
     BLUE_BUTTON = (By.XPATH, "//img[@src=\"http://svtz.ru:5000/odata/downloadImage(name='blue.jpg')\"]")
     RED_BUTTON = (By.XPATH, "//img[@src=\"http://svtz.ru:5000/odata/downloadImage(name='red.jpg')\"]")
-    PINK_BUTTON = (By.XPATH, "//img[@src=\"http://svtz.ru:5000/odata/downloadImage(name='magenta.jpg')\"]")
+    MAGENTA_BUTTON = (By.XPATH, "//img[@src=\"http://svtz.ru:5000/odata/downloadImage(name='magenta.jpg')\"]")
     YELLOW_BUTTON = (By.XPATH, "//img[@src=\"http://svtz.ru:5000/odata/downloadImage(name='yellow.jpg')\"]")
-    SILVER_BUTTON = (By.XPATH, "//img[@src=\"http://svtz.ru:5000/odata/downloadImage(name='grey.jpg')\"]")
+    GREY_BUTTON = (By.XPATH, "//img[@src=\"http://svtz.ru:5000/odata/downloadImage(name='grey.jpg')\"]")
     BROWN_BUTTON = (By.XPATH, "//img[@src=\"http://svtz.ru:5000/odata/downloadImage(name='brown.jpg')\"]")
 
     BALL_INF0 = (By.XPATH, '//p[@class="MarkPositive___gKoZp"]')
@@ -51,7 +52,6 @@ class Module18PageLocators(BaseLocators):
     edge_base = '//*[name()="svg"]/*[name()="line"]'
     edge_path = '//*[name()="svg"]/*[@in="{in}" and @out="{out}"]'
 
-    GRAPH = (By.XPATH, '//*[name()="svg"]')
     VERTICES = (By.XPATH, '//*[name()="svg"]/*[name()="circle"]')
     EDGES = (By.XPATH, '//*[name()="svg"]/*[name()="line"]')
 

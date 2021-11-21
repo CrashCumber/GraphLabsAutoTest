@@ -6,6 +6,7 @@ class RegPage(BasePage):
     locators = RegPageLocators()
 
     def authorization(self, user, password):
+        self.click(self.locators.ENTER_BUTTON)
         user_field = self.find(self.locators.INPUT_NAME)
         user_field.clear()
         password_field = self.find(self.locators.INPUT_PASSWORD)

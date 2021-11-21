@@ -31,7 +31,7 @@ def module18_page(driver):
 
 @pytest.fixture(scope="function")
 def auto(driver):
-    page = BasePage(driver)
+    page = RegPage(driver)
     page.authorization(page.user, page.password)
     return BasePage(page.driver)
 
