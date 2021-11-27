@@ -6,6 +6,7 @@ from selenium.webdriver.common.by import By
 from tests.base_ui import BaseCase
 
 
+@pytest.mark.UI_MODULE_18
 class TestUIModule18Page(BaseCase):
     ...
 
@@ -14,6 +15,7 @@ class TestElementsClickability(TestUIModule18Page):
     def test_done_button(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
+        time.sleep(1)
         self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
 
         ball = self.module18_page.find(self.module18_page.locators.BALL_INF0)
@@ -25,6 +27,7 @@ class TestElementsClickability(TestUIModule18Page):
     def test_done_button_many_times(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
+        time.sleep(1)
         self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
 
         ball = self.module18_page.find(self.module18_page.locators.BALL_INF0)
@@ -42,12 +45,14 @@ class TestElementsClickability(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "0"
 
-        ball = self.module18_page.check_answer()
+        self.module18_page.click(self.module18_page.locators.DONE_BUTTON)
+        ball = self.module18_page.find(self.module18_page.locators.BALL_INF0)
         assert ball.text == "0"
 
     def test_help_button(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
+        time.sleep(1)
         self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
 
         self.module18_page.click(self.module18_page.locators.HELP_BUTTON)
@@ -64,6 +69,7 @@ class TestElementsClickability(TestUIModule18Page):
     def test_change_color_edge_button(self, auto, color):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
+        time.sleep(1)
         self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
 
         edge = (
@@ -91,6 +97,7 @@ class TestElementsClickability(TestUIModule18Page):
     def test_change_color_vertex(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
+        time.sleep(1)
         self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
 
         vertex = (By.XPATH, self.module18_page.locators.vertex_path.replace("{}", "1"))
@@ -108,6 +115,7 @@ class TestElementsClickability(TestUIModule18Page):
     def test_change_color_edge(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
+        time.sleep(1)
         self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
 
         edge = (
@@ -124,6 +132,7 @@ class TestElementsDisplayed(TestUIModule18Page):
     def test_displayed_elements(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
+        time.sleep(1)
         self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
 
         self.module18_page.find(self.module18_page.locators.BALL_INF0).is_displayed()
@@ -136,6 +145,7 @@ class TestElementsDisplayed(TestUIModule18Page):
     def test_displayed_task_info_text(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
+        time.sleep(1)
         self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
 
         task = self.module18_page.find(self.module18_page.locators.TASK_INFO)
@@ -398,7 +408,7 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         self.module18_page.color_edge(5, 7, color)
 
         ball = self.module18_page.check_answer()
-        assert ball.text == "100"
+        assert ball.text == "87"
 
         self.module18_page.click_vertex(2)
         self.module18_page.click_vertex(3)
@@ -478,7 +488,7 @@ class TestLRWorkWithCorrectAnswer(TestUIModule18Page):
         self.module18_page.color_edge(5, 7, color)
 
         ball = self.module18_page.check_answer()
-        assert ball.text == "100"
+        assert ball.text == "87"
 
         self.module18_page.click_vertex(2)
         self.module18_page.click_vertex(3)
