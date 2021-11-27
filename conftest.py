@@ -1,13 +1,12 @@
 import json
 from ui.fixtures import *
-from dataclasses import dataclass
 
 
 def pytest_addoption(parser):
-    parser.addoption('--url', default='http://localhost:3000')
+    parser.addoption('--url', default='http://gl-backend.svtz.ru:5050')
     parser.addoption('--browser', default='chrome')
     parser.addoption('--browser_ver', default='latest')
-    parser.addoption('--selenoid', default=None)
+    parser.addoption('--selenoid', default=False)
 
 
 @pytest.fixture(scope='session')
@@ -15,29 +14,10 @@ def config(request):
     url = request.config.getoption('--url')
     browser = request.config.getoption('--browser')
     version = request.config.getoption('--browser_ver')
-    selenoid = request.config.getoption('--selenoid')       #true or none
+    selenoid = request.config.getoption('--selenoid')
     if selenoid:
         url = 'http://myapp:8082'
     return {'browser': browser, 'version': version, 'url': url, 'selenoid': selenoid}
-
-
-@dataclass
-class Settings:
-    URL: str = None
-
-#
-# @pytest.fixture(scope='session')
-# def config_api(docker_api) -> Settings:
-#     settings = Settings(URL="http://0.0.0.0:8082/")
-#     return settings
-
-
-# @pytest.fixture(scope='function')
-# def api_client(config_api):
-#     user = 'valentina'
-#     password = 'valentina'
-#     client = ApiClient(config_api.URL, user, password)
-#     return client
 
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
