@@ -1,3 +1,5 @@
+import time
+
 import allure
 import pytest
 from selenium import webdriver
@@ -34,6 +36,19 @@ def auto(driver):
     page = RegPage(driver)
     page.authorization(page.user, page.password)
     return BasePage(page.driver)
+
+
+@pytest.fixture(scope="function")
+def module(driver):
+    page = RegPage(driver)
+    page.authorization(page.user, page.password)
+    base = BasePage(page.driver)
+    time.sleep(1)
+    base.get_page(Module18Page.URL)
+    time.sleep(1)
+    m_page = Module18Page(page.driver)
+    m_page.switch_to_frame(m_page.locators.FRAME)
+    return m_page
 
 
 @pytest.fixture(scope='function')

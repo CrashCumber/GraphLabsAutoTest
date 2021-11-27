@@ -1,4 +1,3 @@
-import json
 import time
 
 import pytest
@@ -11,7 +10,7 @@ class TestUIModule18Page(BaseCase):
     ...
 
 
-class TestButtons(TestUIModule18Page):
+class TestButtonsElements(TestUIModule18Page):
 
     @pytest.mark.skip
     def test_done_button(self, auto):
@@ -22,10 +21,43 @@ class TestButtons(TestUIModule18Page):
         ball = self.base_page.find(self.module18_page.locators.BALL_INF0)
         assert ball.text == "100"
         self.base_page.click(self.module18_page.locators.DONE_BUTTON)
-        time.sleep(1)
-        self.base_page.switch_to_alert()
+        self.base_page.close_alert()
         ball = self.base_page.find(self.module18_page.locators.BALL_INF0)
         assert ball.text == "87"
+
+    @pytest.mark.skip
+    def test_done_button_many_times(self, auto):
+        self.base_page = auto
+        self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
+        self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
+
+        ball = self.base_page.find(self.module18_page.locators.BALL_INF0)
+        assert ball.text == "100"
+
+        self.base_page.click(self.module18_page.locators.DONE_BUTTON)
+        self.base_page.close_alert()
+        ball = self.base_page.find(self.module18_page.locators.BALL_INF0)
+        assert ball.text == "87"
+
+        self.base_page.click(self.module18_page.locators.DONE_BUTTON)
+        self.base_page.close_alert()
+        ball = self.base_page.find(self.module18_page.locators.BALL_INF0)
+        assert ball.text == "74"
+
+        self.base_page.click(self.module18_page.locators.DONE_BUTTON)
+        self.base_page.close_alert()
+        ball = self.base_page.find(self.module18_page.locators.BALL_INF0)
+        assert ball.text == "61"
+
+        self.base_page.click(self.module18_page.locators.DONE_BUTTON)
+        self.base_page.close_alert()
+        ball = self.base_page.find(self.module18_page.locators.BALL_INF0)
+        assert ball.text == "0"
+
+        self.base_page.click(self.module18_page.locators.DONE_BUTTON)
+        self.base_page.close_alert()
+        ball = self.base_page.find(self.module18_page.locators.BALL_INF0)
+        assert ball.text == "0"
 
     @pytest.mark.skip
     def test_help_button(self, auto):
@@ -43,7 +75,7 @@ class TestButtons(TestUIModule18Page):
 
     @pytest.mark.skip
     @pytest.mark.parametrize("color", ("red", "blue", "grey", "yellow", "brown", "magenta"))
-    def test_change_color_edge(self, auto, color):
+    def test_change_color_edge_button(self, auto, color):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
         self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
@@ -77,6 +109,16 @@ class TestButtons(TestUIModule18Page):
         self.module18_page.click(vertex)
         assert "fill: rgb(238, 238, 238);" in self.module18_page.find(vertex).get_attribute("style")
 
+    @pytest.mark.skip
+    def test_change_color_edge(self, auto):
+        self.base_page = auto
+        self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
+        self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
+
+        edge = (By.XPATH, self.module18_page.locators.edge_path.replace("{in}", "8").replace("{out}", "1"))
+        self.module18_page.click(edge)
+        assert "stroke: green;" in self.module18_page.find(edge).get_attribute("style")
+
 
 class TestDisplayedElements(TestUIModule18Page):
     @pytest.mark.skip
@@ -92,28 +134,414 @@ class TestDisplayedElements(TestUIModule18Page):
         self.module18_page.find(self.module18_page.locators.HELP_BUTTON).is_displayed()
         self.module18_page.find(self.module18_page.locators.BUTTONS)
 
+    @pytest.mark.skip
+    def test_displayed_task_info_text(self, auto):
+        self.base_page = auto
+        self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
+        self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
 
-class TestLRWork(TestUIModule18Page):
-    # @pytest.mark.skip
-    def test_first_step_error(self):
-        # self.base_page = auto
-        # self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
-        # self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
+        task = self.module18_page.find(self.module18_page.locators.TASK_INFO)
+        assert "Цель: Найти компоненты сильной связности с помощь циклового метода" in task.text
 
-        components = json.loads(self.base_page.get_storage())
-        button_colors = ["red", "blue", "grey", "yellow", "brown", "magenta"]
-        edge_path = '//*[name()="svg"]/*[@in="{in}"]'
-        for cmp in components:
-            if len(cmp) == 1:
-                vertex = (By.XPATH, self.module18_page.locators.vertex_path.replace("{}", cmp[0]))
-                time.sleep(2)
-                self.module18_page.click(vertex, timeout=2)
-            else:
-                color = button_colors.pop(0)
-                button = getattr(self.module18_page.locators, f"{color.upper()}_BUTTON", None)
-                for i in range(1, len(cmp)):
-                    edge = (By.XPATH, self.module18_page.locators.edge_path.replace("{in}", "8"))
 
-                    self.module18_page.click(edge)
-                    time.sleep(2)
-                    self.module18_page.click(button)
+class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
+
+    @pytest.mark.skip
+    def test_first_step_error_invalid_highlight_no_cycles(self, module):
+        self.module18_page = module
+
+        self.module18_page.click_vertex(1)
+        self.module18_page.click_vertex(2)
+        self.module18_page.click_vertex(3)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "87"
+
+    @pytest.mark.skip
+    def test_first_step_error_invalid_highlight_no_vertices(self, module):
+        self.module18_page = module
+
+        color = "red"
+        self.module18_page.move_vertex(9, -50, 0)
+        self.module18_page.color_edge(9, 10, color)
+        self.module18_page.color_edge(10, 8, color)
+        self.module18_page.color_edge(8, 9, color)
+
+        color = "blue"
+        self.module18_page.move_vertex(5, -50, 80)
+        self.module18_page.color_edge(4, 5, color)
+        self.module18_page.color_edge(6, 4, color)
+        self.module18_page.color_edge(5, 6, color)
+        self.module18_page.color_edge(7, 6, color)
+        self.module18_page.color_edge(5, 7, color)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "87"
+
+    @pytest.mark.skip
+    def test_first_step_error_invalid_highlight_one_vertex(self, module):
+        self.module18_page = module
+
+        self.module18_page.click_vertex(1)
+        self.module18_page.click_vertex(2)
+        self.module18_page.click_vertex(3)
+        self.module18_page.click_vertex(7)
+
+        color = "red"
+        self.module18_page.move_vertex(9, -50, 0)
+        self.module18_page.color_edge(9, 10, color)
+        self.module18_page.color_edge(10, 8, color)
+        self.module18_page.color_edge(8, 9, color)
+
+        color = "blue"
+        self.module18_page.move_vertex(5, -50, 80)
+        self.module18_page.color_edge(4, 5, color)
+        self.module18_page.color_edge(6, 4, color)
+        self.module18_page.color_edge(5, 6, color)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "87"
+
+    @pytest.mark.skip
+    def test_first_step_error_invalid_highlight_css(self, module):
+        self.module18_page = module
+
+        self.module18_page.click_vertex(1)
+        self.module18_page.click_vertex(2)
+        self.module18_page.click_vertex(3)
+
+        color = "red"
+        self.module18_page.move_vertex(9, -50, 0)
+        self.module18_page.color_edge(9, 10, color)
+        self.module18_page.color_edge(10, 8, color)
+        self.module18_page.color_edge(8, 9, color)
+
+        self.module18_page.move_vertex(5, -50, 80)
+        self.module18_page.color_edge(4, 5, color)
+        self.module18_page.color_edge(6, 4, color)
+        self.module18_page.color_edge(5, 6, color)
+        self.module18_page.color_edge(5, 7, color)
+        self.module18_page.color_edge(7, 6, color)
+
+        self.module18_page.color_edge(7, 8, color)  # bad
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "87"
+
+    @pytest.mark.skip
+    def test_first_step_error_invalid_highlight_one_edge(self, module):
+        self.module18_page = module
+
+        self.module18_page.click_vertex(1)
+        self.module18_page.click_vertex(2)
+        self.module18_page.click_vertex(3)
+
+        color = "red"
+        self.module18_page.move_vertex(9, -50, 0)
+        self.module18_page.color_edge(9, 10, color)
+        self.module18_page.color_edge(10, 8, color)
+        self.module18_page.color_edge(8, 9, color)
+
+        color = "blue"
+        self.module18_page.move_vertex(5, -50, 80)
+        self.module18_page.color_edge(4, 5, color)
+        self.module18_page.color_edge(6, 4, color)
+        self.module18_page.color_edge(5, 6, color)
+        self.module18_page.color_edge(5, 7, color)
+        self.module18_page.color_edge(7, 6, color)
+
+        self.module18_page.color_edge(7, 8, color)  # bad
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "87"
+
+    @pytest.mark.skip
+    def test_first_step_error_invalid_highlight_not_all_single_vertices(self, module):
+        self.module18_page = module
+
+        self.module18_page.click_vertex(1)
+
+        color = "red"
+        self.module18_page.move_vertex(9, -50, 0)
+        self.module18_page.color_edge(9, 10, color)
+        self.module18_page.color_edge(10, 8, color)
+        self.module18_page.color_edge(8, 9, color)
+
+        color = "blue"
+        self.module18_page.move_vertex(5, -50, 80)
+        self.module18_page.color_edge(4, 5, color)
+        self.module18_page.color_edge(6, 4, color)
+        self.module18_page.color_edge(5, 6, color)
+        self.module18_page.color_edge(7, 6, color)
+        self.module18_page.color_edge(5, 7, color)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "87"
+
+    @pytest.mark.skip
+    def test_first_step_error_some_times(self, module):
+        self.module18_page = module
+
+        self.module18_page.click_vertex(1)
+        self.module18_page.click_vertex(2)
+        self.module18_page.click_vertex(3)
+
+        color = "red"
+        self.module18_page.move_vertex(9, -50, 0)
+        self.module18_page.color_edge(9, 10, color)
+        self.module18_page.color_edge(10, 8, color)
+        self.module18_page.color_edge(8, 9, color)
+
+        self.module18_page.move_vertex(5, -50, 80)
+        self.module18_page.color_edge(4, 5, color)
+        self.module18_page.color_edge(6, 4, color)
+        self.module18_page.color_edge(5, 6, color)
+        self.module18_page.color_edge(7, 6, color)
+        self.module18_page.color_edge(5, 7, color)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "87"
+
+        color = "blue"
+        self.module18_page.color_edge(4, 5, color)
+        self.module18_page.color_edge(6, 4, color)
+        self.module18_page.color_edge(5, 6, color)
+        self.module18_page.color_edge(7, 6, color)
+        self.module18_page.color_edge(5, 7, color)
+        self.module18_page.color_edge(7, 8, color)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "74"
+
+        self.module18_page.click_vertex(1)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "61"
+        time.sleep(3)
+
+        self.module18_page.click_vertex(1)
+        self.module18_page.click_edge(7, 8)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "61"
+
+    @pytest.mark.skip
+    def test_first_step_total_fail(self, module):
+        self.module18_page = module
+
+        self.module18_page.click_vertex(1)
+        self.module18_page.click_vertex(2)
+        self.module18_page.click_vertex(3)
+
+        color = "red"
+        self.module18_page.move_vertex(9, -50, 0)
+        self.module18_page.color_edge(9, 10, color)
+        self.module18_page.color_edge(10, 8, color)
+        self.module18_page.color_edge(8, 9, color)
+
+        self.module18_page.move_vertex(5, -50, 80)
+        self.module18_page.color_edge(4, 5, color)
+        self.module18_page.color_edge(6, 4, color)
+        self.module18_page.color_edge(5, 6, color)
+        self.module18_page.color_edge(7, 6, color)
+        self.module18_page.color_edge(5, 7, color)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "87"
+
+        color = "blue"
+        self.module18_page.color_edge(4, 5, color)
+        self.module18_page.color_edge(6, 4, color)
+        self.module18_page.color_edge(5, 6, color)
+        self.module18_page.color_edge(7, 6, color)
+        self.module18_page.color_edge(5, 7, color)
+        self.module18_page.color_edge(7, 8, color)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "74"
+
+        self.module18_page.click_vertex(1)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "61"
+
+        self.module18_page.click_vertex(1)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "0"
+
+    @pytest.mark.skip
+    def test_second_step_fail(self, module):
+        self.module18_page = module
+        self.module18_page.get_first_step_success()
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "100"
+
+        self.module18_page.squash_vertex(10, 8)
+        self.module18_page.squash_vertex(9, 8)
+
+        self.module18_page.squash_vertex(7, 8)
+        self.module18_page.squash_vertex(5, 6)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "0"
+
+    @pytest.mark.skip
+    def test_second_step_fail_after_one_first_fail(self, module):
+        self.module18_page = module
+
+        self.module18_page.click_vertex(1)
+
+        color = "red"
+        self.module18_page.move_vertex(9, -50, 0)
+        self.module18_page.color_edge(9, 10, color)
+        self.module18_page.color_edge(10, 8, color)
+        self.module18_page.color_edge(8, 9, color)
+
+        color = "blue"
+        self.module18_page.move_vertex(5, -50, 80)
+        self.module18_page.color_edge(4, 5, color)
+        self.module18_page.color_edge(6, 4, color)
+        self.module18_page.color_edge(5, 6, color)
+        self.module18_page.color_edge(7, 6, color)
+        self.module18_page.color_edge(5, 7, color)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "100"
+
+        self.module18_page.click_vertex(2)
+        self.module18_page.click_vertex(3)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "87"
+
+        self.module18_page.squash_vertex(10, 8)
+        self.module18_page.squash_vertex(9, 8)
+
+        self.module18_page.squash_vertex(7, 8)
+        self.module18_page.squash_vertex(5, 6)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "0"
+
+
+class TestLRWorkWithCorrectAnswer(TestUIModule18Page):
+
+    @pytest.mark.skip
+    def test_first_step_success(self, module):
+        self.module18_page = module
+
+        self.module18_page.click_vertex(1)
+        self.module18_page.click_vertex(2)
+        self.module18_page.click_vertex(3)
+
+        color = "red"
+        self.module18_page.move_vertex(9, -50, 0)
+        self.module18_page.color_edge(9, 10, color)
+        self.module18_page.color_edge(10, 8, color)
+        self.module18_page.color_edge(8, 9, color)
+
+        color = "blue"
+        self.module18_page.move_vertex(5, -50, 80)
+        self.module18_page.color_edge(4, 5, color)
+        self.module18_page.color_edge(6, 4, color)
+        self.module18_page.color_edge(5, 6, color)
+        self.module18_page.color_edge(7, 6, color)
+        self.module18_page.color_edge(5, 7, color)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "100"
+
+    @pytest.mark.skip
+    def test_second_step_success(self, module):
+        self.module18_page = module
+        self.module18_page.get_first_step_success()
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "100"
+
+        self.module18_page.squash_vertex(10, 8)
+        self.module18_page.squash_vertex(9, 8)
+
+        self.module18_page.squash_vertex(7, 6)
+        self.module18_page.squash_vertex(5, 6)
+        self.module18_page.squash_vertex(4, 6)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "100"
+
+    @pytest.mark.skip
+    def test_second_step_success_after_one_first_fail(self, module):
+        self.module18_page = module
+
+        self.module18_page.click_vertex(1)
+
+        color = "red"
+        self.module18_page.move_vertex(9, -50, 0)
+        self.module18_page.color_edge(9, 10, color)
+        self.module18_page.color_edge(10, 8, color)
+        self.module18_page.color_edge(8, 9, color)
+
+        color = "blue"
+        self.module18_page.move_vertex(5, -50, 80)
+        self.module18_page.color_edge(4, 5, color)
+        self.module18_page.color_edge(6, 4, color)
+        self.module18_page.color_edge(5, 6, color)
+        self.module18_page.color_edge(7, 6, color)
+        self.module18_page.color_edge(5, 7, color)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "100"
+
+        self.module18_page.click_vertex(2)
+        self.module18_page.click_vertex(3)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "87"
+
+        self.module18_page.squash_vertex(10, 8)
+        self.module18_page.squash_vertex(9, 8)
+
+        self.module18_page.squash_vertex(7, 6)
+        self.module18_page.squash_vertex(5, 6)
+        self.module18_page.squash_vertex(4, 6)
+
+        ball = self.module18_page.check_answer()
+        assert ball.text == "87"
+
+
+class TestAlerts(TestUIModule18Page):
+
+    @pytest.mark.skip
+    def test_alert_after_first_step_fail(self, module):
+        self.module18_page = module
+        self.module18_page.get_first_step_fail()
+        self.module18_page.click(self.module18_page.locators.DONE_BUTTON)
+        alert = self.module18_page.switch_to_alert()
+        assert alert.text == "Вы ошиблись. Попробуйте еще раз."
+
+    @pytest.mark.skip
+    def test_alert_after_first_step_success(self, module):
+        self.module18_page = module
+        self.module18_page.get_first_step_success()
+        self.module18_page.click(self.module18_page.locators.DONE_BUTTON)
+        alert = self.module18_page.switch_to_alert()
+        assert alert.text == "Вы можете перейти ко второму этапу. Постройте конденсат графа, перетащив вершины."
+
+    @pytest.mark.skip
+    def test_alert_after_second_step_fail(self, module):
+        self.module18_page = module
+        self.module18_page.get_second_step_fail()
+        self.module18_page.click(self.module18_page.locators.DONE_BUTTON)
+        alert = self.module18_page.switch_to_alert()
+        assert alert.text == "Упражнение окончено. Вы допустили слишом много ошибок."
+
+    @pytest.mark.skip
+    def test_alert_after_second_step_success(self, module):
+        self.module18_page = module
+        self.module18_page.get_second_step_success()
+        self.module18_page.click(self.module18_page.locators.DONE_BUTTON)
+        alert = self.module18_page.switch_to_alert()
+        assert alert.text == "Поздравляю, вы справились с заданием."
+

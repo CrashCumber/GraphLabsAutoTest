@@ -53,13 +53,16 @@ class BasePage:
     def scroll_to_element(self, element):
         self.driver.execute_script('arguments[0].scrollIntoView(true);', element)
 
-    def switch_to_alert(self, accept=True):
+    def close_alert(self, accept=True):
         if accept:
             self.driver.switch_to.alert.accept()
         else:
             self.driver.switch_to.alert.cancel()
 
-    def switch_to_frame(self, locator, timeout=1):
+    def switch_to_alert(self):
+        return self.driver.switch_to.alert
+
+    def switch_to_frame(self, locator, timeout=2):
         self.driver.switch_to.frame(self.wait(timeout).until(EC.presence_of_element_located(locator)))
 
     def wait(self, timeout=None):
@@ -69,4 +72,10 @@ class BasePage:
 
     def get_storage(self, key="components"):
         return self.driver.execute_script("return window.sessionStorage.getItem(arguments[0]);", key)
+
+    def set_storage(self, key="components", value=""):
+        return self.driver.execute_script("return window.sessionStorage.setItem(arguments[0], arguments[1]);", key, value)
+
+    def get_page(self, url):
+        self.driver.get(url)
 
