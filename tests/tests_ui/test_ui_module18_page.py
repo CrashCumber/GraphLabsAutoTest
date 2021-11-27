@@ -11,7 +11,6 @@ class TestUIModule18Page(BaseCase):
 
 
 class TestElementsClickability(TestUIModule18Page):
-    @pytest.mark.skip
     def test_done_button(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
@@ -23,7 +22,6 @@ class TestElementsClickability(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "87"
 
-    @pytest.mark.skip
     def test_done_button_many_times(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
@@ -47,7 +45,6 @@ class TestElementsClickability(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "0"
 
-    @pytest.mark.skip
     def test_help_button(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
@@ -61,7 +58,6 @@ class TestElementsClickability(TestUIModule18Page):
             " Гарантируется, что циклов не больше 7(по числу цветов)."
         )
 
-    @pytest.mark.skip
     @pytest.mark.parametrize(
         "color", ("red", "blue", "grey", "yellow", "brown", "magenta")
     )
@@ -92,7 +88,6 @@ class TestElementsClickability(TestUIModule18Page):
                 "style"
             )
 
-    @pytest.mark.skip
     def test_change_color_vertex(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
@@ -110,7 +105,6 @@ class TestElementsClickability(TestUIModule18Page):
             vertex
         ).get_attribute("style")
 
-    @pytest.mark.skip
     def test_change_color_edge(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
@@ -127,7 +121,6 @@ class TestElementsClickability(TestUIModule18Page):
 
 
 class TestElementsDisplayed(TestUIModule18Page):
-    @pytest.mark.skip
     def test_displayed_elements(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
@@ -140,7 +133,6 @@ class TestElementsDisplayed(TestUIModule18Page):
         self.module18_page.find(self.module18_page.locators.HELP_BUTTON).is_displayed()
         self.module18_page.find(self.module18_page.locators.BUTTONS)
 
-    @pytest.mark.skip
     def test_displayed_task_info_text(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
@@ -154,7 +146,6 @@ class TestElementsDisplayed(TestUIModule18Page):
 
 
 class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
-    @pytest.mark.skip
     def test_first_step_error_invalid_highlight_no_cycles(self, module):
         self.module18_page = module
 
@@ -165,7 +156,6 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "87"
 
-    @pytest.mark.skip
     def test_first_step_error_invalid_highlight_no_vertices(self, module):
         self.module18_page = module
 
@@ -186,7 +176,6 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "87"
 
-    @pytest.mark.skip
     def test_first_step_error_invalid_highlight_one_vertex(self, module):
         self.module18_page = module
 
@@ -210,7 +199,6 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "87"
 
-    @pytest.mark.skip
     def test_first_step_error_invalid_highlight_css(self, module):
         self.module18_page = module
 
@@ -236,7 +224,6 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "87"
 
-    @pytest.mark.skip
     def test_first_step_error_invalid_highlight_one_edge(self, module):
         self.module18_page = module
 
@@ -263,7 +250,6 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "87"
 
-    @pytest.mark.skip
     def test_first_step_error_invalid_highlight_not_all_single_vertices(self, module):
         self.module18_page = module
 
@@ -286,7 +272,6 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "87"
 
-    @pytest.mark.skip
     def test_first_step_error_some_times(self, module):
         self.module18_page = module
 
@@ -333,7 +318,6 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "61"
 
-    @pytest.mark.skip
     def test_first_step_total_fail(self, module):
         self.module18_page = module
 
@@ -378,7 +362,6 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "0"
 
-    @pytest.mark.skip
     def test_second_step_fail(self, module):
         self.module18_page = module
         self.module18_page.get_first_step_success()
@@ -395,7 +378,6 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "0"
 
-    @pytest.mark.skip
     def test_second_step_fail_after_one_first_fail(self, module):
         self.module18_page = module
 
@@ -435,7 +417,6 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
 
 
 class TestLRWorkWithCorrectAnswer(TestUIModule18Page):
-    @pytest.mark.skip
     def test_first_step_success(self, module):
         self.module18_page = module
 
@@ -460,7 +441,6 @@ class TestLRWorkWithCorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "100"
 
-    @pytest.mark.skip
     def test_second_step_success(self, module):
         self.module18_page = module
         self.module18_page.get_first_step_success()
@@ -478,7 +458,6 @@ class TestLRWorkWithCorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "100"
 
-    @pytest.mark.skip
     def test_second_step_success_after_one_first_fail(self, module):
         self.module18_page = module
 
@@ -519,7 +498,6 @@ class TestLRWorkWithCorrectAnswer(TestUIModule18Page):
 
 
 class TestAlerts(TestUIModule18Page):
-    @pytest.mark.skip
     def test_alert_after_first_step_fail(self, module):
         self.module18_page = module
         self.module18_page.get_first_step_fail()
@@ -527,7 +505,6 @@ class TestAlerts(TestUIModule18Page):
         alert = self.module18_page.get_alert()
         assert alert.text == "Вы ошиблись. Попробуйте еще раз."
 
-    @pytest.mark.skip
     def test_alert_after_first_step_success(self, module):
         self.module18_page = module
         self.module18_page.get_first_step_success()
@@ -538,7 +515,6 @@ class TestAlerts(TestUIModule18Page):
             == "Вы можете перейти ко второму этапу. Постройте конденсат графа, перетащив вершины."
         )
 
-    @pytest.mark.skip
     def test_alert_after_second_step_fail(self, module):
         self.module18_page = module
         self.module18_page.get_second_step_fail()
@@ -546,7 +522,6 @@ class TestAlerts(TestUIModule18Page):
         alert = self.module18_page.get_alert()
         assert alert.text == "Упражнение окончено. Вы допустили слишом много ошибок."
 
-    @pytest.mark.skip
     def test_alert_after_second_step_success(self, module):
         self.module18_page = module
         self.module18_page.get_second_step_success()

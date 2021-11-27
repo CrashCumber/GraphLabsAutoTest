@@ -15,8 +15,6 @@ def config(request):
     browser = request.config.getoption('--browser')
     version = request.config.getoption('--browser_ver')
     selenoid = request.config.getoption('--selenoid')
-    if selenoid:
-        url = 'http://myapp:8082'
     return {'browser': browser, 'version': version, 'url': url, 'selenoid': selenoid}
 
 
