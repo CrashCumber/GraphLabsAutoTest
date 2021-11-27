@@ -4,5 +4,3 @@ from ui.locators.locators import MainPageLocators
 
 class MainPage(BasePage):
     locators = MainPageLocators()
-
-
