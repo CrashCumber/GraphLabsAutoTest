@@ -12,19 +12,19 @@ class TestUIModule18Page(BaseCase):
 
 
 class TestElementsClickability(TestUIModule18Page):
+    # def test_done_button(self, auto):
+    #     self.base_page = auto
+    #     self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
+    #     time.sleep(1)
+    #     self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
+    #
+    #     ball = self.module18_page.find(self.module18_page.locators.BALL_INF0)
+    #     assert ball.text == "100"
+    #
+    #     ball = self.module18_page.check_answer()
+    #     assert ball.text == "87"
+
     def test_done_button(self, auto):
-        self.base_page = auto
-        self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
-        time.sleep(1)
-        self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
-
-        ball = self.module18_page.find(self.module18_page.locators.BALL_INF0)
-        assert ball.text == "100"
-
-        ball = self.module18_page.check_answer()
-        assert ball.text == "87"
-
-    def test_done_button_many_times(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
         time.sleep(1)
@@ -281,52 +281,52 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
 
         ball = self.module18_page.check_answer()
         assert ball.text == "87"
-
-    def test_first_step_error_some_times(self, module):
-        self.module18_page = module
-
-        self.module18_page.click_vertex(1)
-        self.module18_page.click_vertex(2)
-        self.module18_page.click_vertex(3)
-
-        color = "red"
-        self.module18_page.move_vertex(9, -50, 0)
-        self.module18_page.color_edge(9, 10, color)
-        self.module18_page.color_edge(10, 8, color)
-        self.module18_page.color_edge(8, 9, color)
-
-        self.module18_page.move_vertex(5, -50, 80)
-        self.module18_page.color_edge(4, 5, color)
-        self.module18_page.color_edge(6, 4, color)
-        self.module18_page.color_edge(5, 6, color)
-        self.module18_page.color_edge(7, 6, color)
-        self.module18_page.color_edge(5, 7, color)
-
-        ball = self.module18_page.check_answer()
-        assert ball.text == "87"
-
-        color = "blue"
-        self.module18_page.color_edge(4, 5, color)
-        self.module18_page.color_edge(6, 4, color)
-        self.module18_page.color_edge(5, 6, color)
-        self.module18_page.color_edge(7, 6, color)
-        self.module18_page.color_edge(5, 7, color)
-        self.module18_page.color_edge(7, 8, color)
-
-        ball = self.module18_page.check_answer()
-        assert ball.text == "74"
-
-        self.module18_page.click_vertex(1)
-
-        ball = self.module18_page.check_answer()
-        assert ball.text == "61"
-        time.sleep(3)
-
-        self.module18_page.click_vertex(1)
-        self.module18_page.click_edge(7, 8)
-
-        ball = self.module18_page.check_answer()
-        assert ball.text == "61"
+    #
+    # def test_first_step_error_some_times(self, module):
+    #     self.module18_page = module
+    #
+    #     self.module18_page.click_vertex(1)
+    #     self.module18_page.click_vertex(2)
+    #     self.module18_page.click_vertex(3)
+    #
+    #     color = "red"
+    #     self.module18_page.move_vertex(9, -50, 0)
+    #     self.module18_page.color_edge(9, 10, color)
+    #     self.module18_page.color_edge(10, 8, color)
+    #     self.module18_page.color_edge(8, 9, color)
+    #
+    #     self.module18_page.move_vertex(5, -50, 80)
+    #     self.module18_page.color_edge(4, 5, color)
+    #     self.module18_page.color_edge(6, 4, color)
+    #     self.module18_page.color_edge(5, 6, color)
+    #     self.module18_page.color_edge(7, 6, color)
+    #     self.module18_page.color_edge(5, 7, color)
+    #
+    #     ball = self.module18_page.check_answer()
+    #     assert ball.text == "87"
+    #
+    #     color = "blue"
+    #     self.module18_page.color_edge(4, 5, color)
+    #     self.module18_page.color_edge(6, 4, color)
+    #     self.module18_page.color_edge(5, 6, color)
+    #     self.module18_page.color_edge(7, 6, color)
+    #     self.module18_page.color_edge(5, 7, color)
+    #     self.module18_page.color_edge(7, 8, color)
+    #
+    #     ball = self.module18_page.check_answer()
+    #     assert ball.text == "74"
+    #
+    #     self.module18_page.click_vertex(1)
+    #
+    #     ball = self.module18_page.check_answer()
+    #     assert ball.text == "61"
+    #     time.sleep(3)
+    #
+    #     self.module18_page.click_vertex(1)
+    #     self.module18_page.click_edge(7, 8)
+    #
+    #     ball = self.module18_page.check_answer()
+    #     assert ball.text == "61"
 
     def test_first_step_total_fail(self, module):
         self.module18_page = module
@@ -506,35 +506,35 @@ class TestLRWorkWithCorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "87"
 
-
-class TestAlerts(TestUIModule18Page):
-    def test_alert_after_first_step_fail(self, module):
-        self.module18_page = module
-        self.module18_page.get_first_step_fail()
-        self.module18_page.click(self.module18_page.locators.DONE_BUTTON)
-        alert = self.module18_page.get_alert()
-        assert alert.text == "Вы ошиблись. Попробуйте еще раз."
-
-    def test_alert_after_first_step_success(self, module):
-        self.module18_page = module
-        self.module18_page.get_first_step_success()
-        self.module18_page.click(self.module18_page.locators.DONE_BUTTON)
-        alert = self.module18_page.get_alert()
-        assert (
-            alert.text
-            == "Вы можете перейти ко второму этапу. Постройте конденсат графа, перетащив вершины."
-        )
-
-    def test_alert_after_second_step_fail(self, module):
-        self.module18_page = module
-        self.module18_page.get_second_step_fail()
-        self.module18_page.click(self.module18_page.locators.DONE_BUTTON)
-        alert = self.module18_page.get_alert()
-        assert alert.text == "Упражнение окончено. Вы допустили слишом много ошибок."
-
-    def test_alert_after_second_step_success(self, module):
-        self.module18_page = module
-        self.module18_page.get_second_step_success()
-        self.module18_page.click(self.module18_page.locators.DONE_BUTTON)
-        alert = self.module18_page.get_alert()
-        assert alert.text == "Поздравляю, вы справились с заданием."
+#
+# class TestAlerts(TestUIModule18Page):
+#     def test_alert_after_first_step_fail(self, module):
+#         self.module18_page = module
+#         self.module18_page.get_first_step_fail()
+#         self.module18_page.click(self.module18_page.locators.DONE_BUTTON)
+#         alert = self.module18_page.get_alert()
+#         assert alert.text == "Вы ошиблись. Попробуйте еще раз."
+#
+#     def test_alert_after_first_step_success(self, module):
+#         self.module18_page = module
+#         self.module18_page.get_first_step_success()
+#         self.module18_page.click(self.module18_page.locators.DONE_BUTTON)
+#         alert = self.module18_page.get_alert()
+#         assert (
+#             alert.text
+#             == "Вы можете перейти ко второму этапу. Постройте конденсат графа, перетащив вершины."
+#         )
+#
+#     def test_alert_after_second_step_fail(self, module):
+#         self.module18_page = module
+#         self.module18_page.get_second_step_fail()
+#         self.module18_page.click(self.module18_page.locators.DONE_BUTTON)
+#         alert = self.module18_page.get_alert()
+#         assert alert.text == "Упражнение окончено. Вы допустили слишом много ошибок."
+#
+#     def test_alert_after_second_step_success(self, module):
+#         self.module18_page = module
+#         self.module18_page.get_second_step_success()
+#         self.module18_page.click(self.module18_page.locators.DONE_BUTTON)
+#         alert = self.module18_page.get_alert()
+#         assert alert.text == "Поздравляю, вы справились с заданием."

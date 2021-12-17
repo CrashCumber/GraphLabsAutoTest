@@ -3,6 +3,7 @@ import time
 import pytest
 from selenium import webdriver
 from selenium.webdriver import ChromeOptions
+from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from ui.pages.base_page import BasePage
 from ui.pages.module_18_page import Module18Page
@@ -60,7 +61,8 @@ def driver(config):
     selenoid = config["selenoid"]
     if not selenoid:
         manager = ChromeDriverManager(version=version)
-        driver = webdriver.Chrome(executable_path=manager.install())
+        service = Service(manager.install())
+        driver = webdriver.Chrome(service=service)
     else:
         options = ChromeOptions()
         capabilities = {

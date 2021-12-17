@@ -79,17 +79,5 @@ class BasePage:
             timeout = 3
         return WebDriverWait(self.driver, timeout=timeout)
 
-    def get_storage(self, key="components"):
-        return self.driver.execute_script(
-            "return window.sessionStorage.getItem(arguments[0]);", key
-        )
-
-    def set_storage(self, key="components", value=""):
-        return self.driver.execute_script(
-            "return window.sessionStorage.setItem(arguments[0], arguments[1]);",
-            key,
-            value,
-        )
-
     def get_page(self, url):
         self.driver.get(url)
