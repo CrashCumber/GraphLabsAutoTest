@@ -14,7 +14,7 @@ pipeline {
         steps {
            catchError {
               script {
-      	    docker.image('selenoid/chrome:83.0')
+      	        docker.image('selenoid/chrome:latest')
       	      }
            }
         }
@@ -23,10 +23,9 @@ pipeline {
         steps {
            catchError {
               script {
-          	     docker.image('aerokube/selenoid:1.10.0').withRun('-p 4444:4444 -v /run/docker.sock:/var/run/docker.sock -v $PWD:/etc/selenoid/',
-            	'-timeout 600s -limit 2') { c ->
-              	docker.image('python-web-tests').inside("--link ${c.id}:selenoid") {
-                    	sh "pytest ${CMD_PARAMS}"
+          	     docker.image('aerokube/selenoid:1.10.0').withRun('-p 4444:4444 -v /run/docker.sock:/var/run/docker.sock -v $PWD:/etc/selenoid/', '-timeout 600s -limit 2') { c ->
+              	 docker.image('python-web-tests').inside("--link ${c.id}:selenoid") {
+                    	sh "pytest --selenoid=True"
                 	    }
                    }
         	     }
@@ -40,7 +39,7 @@ pipeline {
       	   jdk: '',
       	   properties: [],
       	   reportBuildPolicy: 'ALWAYS',
-      	   results: [[path: 'report']]
+      	   results: [[path: '$WORKSPACE/allure_results']]
     	   ])
   	        }
          }
