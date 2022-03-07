@@ -11,6 +11,7 @@ class TestUIModule18Page(BaseCase):
     ...
 
 
+@pytest.mark.CLICK
 class TestElementsClickability(TestUIModule18Page):
     # def test_done_button(self, auto):
     #     self.base_page = auto
@@ -49,6 +50,7 @@ class TestElementsClickability(TestUIModule18Page):
         ball = self.module18_page.find(self.module18_page.locators.BALL_INF0)
         assert ball.text == "0"
 
+    @pytest.mark.skip
     def test_help_button(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
@@ -63,6 +65,7 @@ class TestElementsClickability(TestUIModule18Page):
             " Гарантируется, что циклов не больше 7(по числу цветов)."
         )
 
+    @pytest.mark.skip
     @pytest.mark.parametrize(
         "color", ("red", "blue", "grey", "yellow", "brown", "magenta")
     )
@@ -94,6 +97,7 @@ class TestElementsClickability(TestUIModule18Page):
                 "style"
             )
 
+    @pytest.mark.skip
     def test_change_color_vertex(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
@@ -112,6 +116,7 @@ class TestElementsClickability(TestUIModule18Page):
             vertex
         ).get_attribute("style")
 
+    @pytest.mark.skip
     def test_change_color_edge(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
