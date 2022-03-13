@@ -23,4 +23,4 @@ services:
         links:
             - selenoid
         volumes:
-            - ./allure-results:/allure-results
+            - ./report:/report
