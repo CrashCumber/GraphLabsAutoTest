@@ -40,7 +40,6 @@ class BasePage:
                     pass
         raise
 
-    @allure.step("Передвинуть элемент")
     def drag_and_drop(self, locator_from, locator_to, timeout=1):
         for i in range(RETRY_COUNT):
             try:

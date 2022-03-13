@@ -13,7 +13,7 @@ class TestUIModule18Page(BaseCase):
     ...
 
 
-@allure.feature("Проверка кликабельности элементов")
+@allure.story("Проверка кликабельности элементов")
 @pytest.mark.CLICKABILITY
 class TestElementsClickability(TestUIModule18Page):
 
@@ -43,7 +43,6 @@ class TestElementsClickability(TestUIModule18Page):
         ball = self.module18_page.find(self.module18_page.locators.BALL_INF0)
         assert ball.text == "0"
 
-    @pytest.mark.skip
     @allure.title("Проверка работоспособности кнопки 'Помощь'")
     def test_help_button(self, auto):
         self.base_page = auto
@@ -59,7 +58,6 @@ class TestElementsClickability(TestUIModule18Page):
             " Гарантируется, что циклов не больше 7(по числу цветов)."
         )
 
-    @pytest.mark.skip
     @pytest.mark.parametrize(
         "color", ("red", "blue", "grey", "yellow", "brown", "magenta")
     )
@@ -92,7 +90,6 @@ class TestElementsClickability(TestUIModule18Page):
                 "style"
             )
 
-    @pytest.mark.skip
     @allure.title("Проверка возможности смены цвета вершины при нажатии на нее")
     def test_change_color_vertex(self, auto):
         self.base_page = auto
@@ -112,7 +109,6 @@ class TestElementsClickability(TestUIModule18Page):
             vertex
         ).get_attribute("style")
 
-    @pytest.mark.skip
     @allure.title("Проверка возможности смены цвета ребра при нажатии на него")
     def test_change_color_edge(self, auto):
         self.base_page = auto
@@ -130,11 +126,9 @@ class TestElementsClickability(TestUIModule18Page):
         assert "stroke: green;" in self.module18_page.find(edge).get_attribute("style")
 
 
-@pytest.mark.skip
 @pytest.mark.DISPLAYED
-@allure.feature("Проверка отображения элементов")
+@allure.story("Проверка отображения элементов")
 class TestElementsDisplayed(TestUIModule18Page):
-
     @allure.title("Проверка отображения всех требуемых элементов")
     def test_displayed_elements(self, auto):
         self.base_page = auto
@@ -163,12 +157,14 @@ class TestElementsDisplayed(TestUIModule18Page):
         )
 
 
-@pytest.mark.skip
-@allure.feature("Проверка корректности подсчета оценки при неверном выполнении лабораторной работы и отображения соответствующих сообщения")
+@allure.story(
+    "Проверка корректности подсчета оценки при неверном выполнении лабораторной работы и отображения соответствующих сообщения"
+)
 @pytest.mark.LR_WORK_INCORRECT
 class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
-
-    @allure.title("Выделение только КСС, состоящих из одной вершины. Отсутствие выделения циклов, образующих КСС")
+    @allure.title(
+        "Выделение только КСС, состоящих из одной вершины. Отсутствие выделения циклов, образующих КСС"
+    )
     def test_first_step_error_invalid_highlight_no_cycles(self, module):
         self.module18_page = module
 
@@ -179,7 +175,9 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "87"
 
-    @allure.title("Выделение только циклов, образующих КСС. Отсутствие выделения единичных КСС")
+    @allure.title(
+        "Выделение только циклов, образующих КСС. Отсутствие выделения единичных КСС"
+    )
     def test_first_step_error_invalid_highlight_no_vertices(self, module):
         self.module18_page = module
 
@@ -277,7 +275,9 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "87"
 
-    @allure.title("Выделение не всех присутствующих в графе вершин-стоков и вершин-истоков")
+    @allure.title(
+        "Выделение не всех присутствующих в графе вершин-стоков и вершин-истоков"
+    )
     def test_first_step_error_invalid_highlight_not_all_single_vertices(self, module):
         self.module18_page = module
 
@@ -362,7 +362,9 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "0"
 
-    @allure.title("Неверное построении конденсата на втором этапе при одной истраченной попытке на первом этапе")
+    @allure.title(
+        "Неверное построении конденсата на втором этапе при одной истраченной попытке на первом этапе"
+    )
     def test_second_step_fail_after_one_first_fail(self, module):
         self.module18_page = module
 
@@ -401,11 +403,11 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         assert ball.text == "0"
 
 
-@pytest.mark.skip
 @pytest.mark.LR_WORK_CORRECT
-@allure.feature("Проверка корректности подсчета оценки при верном выполнении лабораторной работы и отображения соответствующих сообщения")
+@allure.story(
+    "Проверка корректности подсчета оценки при верном выполнении лабораторной работы и отображения соответствующих сообщения"
+)
 class TestLRWorkWithCorrectAnswer(TestUIModule18Page):
-
     @allure.title("Верное выделение КСС на первом этапе")
     def test_first_step_success(self, module):
         self.module18_page = module
@@ -487,6 +489,7 @@ class TestLRWorkWithCorrectAnswer(TestUIModule18Page):
 
         ball = self.module18_page.check_answer()
         assert ball.text == "87"
+
 
 #
 # class TestAlerts(TestUIModule18Page):

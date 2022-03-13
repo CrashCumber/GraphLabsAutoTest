@@ -11,7 +11,7 @@ class Module18Page(BasePage):
     URL = "http://gl-backend.svtz.ru:5050/module/18/?autotest_mode=HjmqvWTJBu"
     locators = Module18PageLocators()
 
-    @allure.step("Раскрасить ребро}")
+    @allure.step("Раскрасить ребро {in_}->{out}")
     def color_edge(self, in_, out, color, timeout=2):
         button = getattr(self.locators, f"{color.upper()}_BUTTON", None)
         if button or color not in self.button_colors:
@@ -20,7 +20,7 @@ class Module18Page(BasePage):
         else:
             raise AssertionError(f"Button with color {color} does not exist.")
 
-    @allure.step("Раскрасить ребро}")
+    @allure.step("Раскрасить вершину {num}")
     def click_vertex(self, num, timeout=2):
         vertex = (By.XPATH, self.locators.vertex_path.replace("{}", str(num)))
         self.click(vertex, timeout=timeout)
@@ -46,7 +46,7 @@ class Module18Page(BasePage):
             for edge in self.find(self.locators.EDGES)
         ]
 
-    @allure.step("Передвинуть вершину")
+    @allure.step("Передвинуть вершину с номером {nun}")
     def move_vertex(self, num, xoffset=100, yoffset=50):
         vertex = (By.XPATH, self.locators.vertex_path.replace("{}", str(num)))
         ActionChains(self.driver).drag_and_drop_by_offset(
