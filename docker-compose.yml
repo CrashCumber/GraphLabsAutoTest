@@ -1,18 +1,15 @@
-version: '2.1'
+version: '3.5'
 
 networks:
-  graphlabs:
-    external:
-      name: graphlabs
+  default:
+    name: tests_network
+
 
 services:
 
     selenoid:
         image: aerokube/selenoid:1.10.0
-        restart: always
-        networks:
-            - graphlabs
-        command: ["-conf", "/etc/selenoid/browsers.json", "-container-network", "graphlabs"]
+        command: ["-conf", "/etc/selenoid/browsers.json", "-container-network", "tests_network"]
         ports:
             - "4444:4444"
         volumes:
@@ -23,11 +20,5 @@ services:
         build: .
         depends_on:
             - selenoid
-        entrypoint: /usr/local/bin/python -m pytest --selenoid=True
         links:
             - selenoid
-        networks:
-            - graphlabs
-        command: /usr/local/bin/python -m pytest --selenoid=True
-
-

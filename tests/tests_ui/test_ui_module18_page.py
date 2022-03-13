@@ -133,6 +133,7 @@ class TestElementsClickability(TestUIModule18Page):
         assert "stroke: green;" in self.module18_page.find(edge).get_attribute("style")
 
 
+@pytest.mark.skip
 class TestElementsDisplayed(TestUIModule18Page):
     def test_displayed_elements(self, auto):
         self.base_page = auto
@@ -160,6 +161,7 @@ class TestElementsDisplayed(TestUIModule18Page):
         )
 
 
+@pytest.mark.skip
 class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
     def test_first_step_error_invalid_highlight_no_cycles(self, module):
         self.module18_page = module
@@ -431,6 +433,7 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         assert ball.text == "0"
 
 
+@pytest.mark.skip
 class TestLRWorkWithCorrectAnswer(TestUIModule18Page):
     def test_first_step_success(self, module):
         self.module18_page = module
