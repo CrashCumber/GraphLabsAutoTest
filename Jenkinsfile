@@ -9,9 +9,19 @@ pipeline {
                 sh "docker-compose build"
             }
         }
-        stage('Pull browser') {
+        stage('Up tests') {
             steps {
                 sh "docker-compose up"
+            }
+        }
+        stage('Stop containers') {
+            steps {
+                sh "docker-compose stop"
+            }
+        }
+        stage('Rm containers') {
+            steps {
+                sh "docker-compose rm"
             }
         }
     }
