@@ -14,6 +14,17 @@ pipeline {
                 sh "docker-compose up -d"
             }
         }
+        stage('Build report') {
+            steps {
+                allure([
+                    includeProperties: false,
+                    jdk: '',
+                    properties: [],
+                    reportBuildPolicy: 'ALWAYS',
+                    results: [[path: 'report']]
+                ])
+            }
+        }
         stage('Rm containers') {
             steps {
                 sh "docker-compose rm -s -f"

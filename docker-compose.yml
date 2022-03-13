@@ -22,3 +22,5 @@ services:
             - selenoid
         links:
             - selenoid
+        volumes:
+            - ./report:/report
