@@ -1,3 +1,4 @@
+import allure
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
@@ -26,6 +27,7 @@ class BasePage:
         except:
             assert False, f"Element {locator} does not exist."
 
+    @allure.step("Кликнуть по элементу {0}")
     def click(self, locator, timeout=1):
         for i in range(RETRY_COUNT):
             try:
@@ -38,6 +40,7 @@ class BasePage:
                     pass
         raise
 
+    @allure.step("Передвинуть элемент")
     def drag_and_drop(self, locator_from, locator_to, timeout=1):
         for i in range(RETRY_COUNT):
             try:

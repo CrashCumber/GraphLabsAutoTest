@@ -4,7 +4,7 @@ tests_selenoid:
 	bash run_selenoid.sh && pytest --selenoid=True
 
 test:
-	pytest -s -l -v -m CLICK tests/tests_ui/test_ui_module18_page.py --alluredir=allure_results
+	pytest -s -l -v -m CLICK tests/tests_ui/test_ui_module18_page.py --alluredir=allure_results --selenoid=False
 
 
 tests_run_selenoid_allure:

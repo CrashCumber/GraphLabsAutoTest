@@ -1,5 +1,6 @@
 import time
 
+import allure
 import pytest
 from selenium.webdriver.common.by import By
 
@@ -13,18 +14,7 @@ class TestUIModule18Page(BaseCase):
 
 @pytest.mark.CLICK
 class TestElementsClickability(TestUIModule18Page):
-    # def test_done_button(self, auto):
-    #     self.base_page = auto
-    #     self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
-    #     time.sleep(1)
-    #     self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
-    #
-    #     ball = self.module18_page.find(self.module18_page.locators.BALL_INF0)
-    #     assert ball.text == "100"
-    #
-    #     ball = self.module18_page.check_answer()
-    #     assert ball.text == "87"
-
+    @allure.title("Проверка работоспособности кнопки 'Готово'")
     def test_done_button(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)

@@ -1,3 +1,5 @@
+import allure
+
 from .base_page import BasePage
 from ui.locators.locators import RegPageLocators
 
@@ -5,6 +7,7 @@ from ui.locators.locators import RegPageLocators
 class RegPage(BasePage):
     locators = RegPageLocators()
 
+    @allure.step("Авторизоваться в системе")
     def authorization(self, user, password):
         self.click(self.locators.ENTER_BUTTON)
 
