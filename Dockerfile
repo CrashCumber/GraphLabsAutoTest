@@ -6,4 +6,3 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-VOLUME /Users/mac/Desktop/GraphLabsAutoTesting/allure_results allure_results

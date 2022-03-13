@@ -71,7 +71,7 @@ def driver(config):
             "version": "83.0",
         }
         driver = webdriver.Remote(
-            command_executor="http://127.0.0.1:4444/wd/hub",
+            command_executor="http://selenoid:4444/wd/hub",
             options=options,
             desired_capabilities=capabilities,
         )

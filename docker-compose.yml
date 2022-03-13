@@ -1,0 +1,33 @@
+version: '2.1'
+
+networks:
+  graphlabs:
+    external:
+      name: graphlabs
+
+services:
+
+    selenoid:
+        image: aerokube/selenoid:1.10.0
+        restart: always
+        networks:
+            - graphlabs
+        command: ["-conf", "/etc/selenoid/browsers.json", "-container-network", "graphlabs"]
+        ports:
+            - "4444:4444"
+        volumes:
+            - /Users/mac/Desktop/GraphLabsAutoTesting/config/:/etc/selenoid/:ro
+            - /var/run/docker.sock:/var/run/docker.sock
+
+    tests:
+        build: .
+        depends_on:
+            - selenoid
+        entrypoint: /usr/local/bin/python -m pytest --selenoid=True
+        links:
+            - selenoid
+        networks:
+            - graphlabs
+        command: /usr/local/bin/python -m pytest --selenoid=True
+
+
