@@ -25,5 +25,10 @@ pipeline {
                 ])
             }
         }
+        stage('Rm containers') {
+            steps {
+                sh "docker-compose stop"
+            }
+        }
     }
 }
