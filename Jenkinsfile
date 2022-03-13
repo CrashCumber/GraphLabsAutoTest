@@ -11,17 +11,12 @@ pipeline {
         }
         stage('Up tests') {
             steps {
-                sh "docker-compose up"
-            }
-        }
-        stage('Stop containers') {
-            steps {
-                sh "docker-compose stop"
+                sh "docker-compose up -d"
             }
         }
         stage('Rm containers') {
             steps {
-                sh "docker-compose rm"
+                sh "docker-compose rm -s -f"
             }
         }
     }
