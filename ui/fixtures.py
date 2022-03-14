@@ -51,6 +51,7 @@ def module(driver):
     time.sleep(10)
 
     m_page = Module18Page(page.driver)
+    time.sleep(5)
     m_page.switch_to_frame(m_page.locators.FRAME)
     return m_page
 

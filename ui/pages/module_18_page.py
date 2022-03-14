@@ -48,7 +48,7 @@ class Module18Page(BasePage):
             for edge in self.find(self.locators.EDGES)
         ]
 
-    @allure.step("Передвинуть вершину с номером {nun}")
+    @allure.step("Передвинуть вершину с номером {num}")
     def move_vertex(self, num, xoffset=100, yoffset=50):
         vertex = (By.XPATH, self.locators.vertex_path.replace("{}", str(num)))
         ActionChains(self.driver).drag_and_drop_by_offset(

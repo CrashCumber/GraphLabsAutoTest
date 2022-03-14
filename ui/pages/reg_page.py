@@ -1,3 +1,5 @@
+import time
+
 import allure
 
 from .base_page import BasePage
@@ -19,4 +21,4 @@ class RegPage(BasePage):
         password_field.clear()
         password_field.send_keys(password)
 
-        self.find(self.locators.AUTHORIZATION_BUTTON).click()
+        self.find(self.locators.AUTHORIZATION_BUTTON).click(timeout=10)
