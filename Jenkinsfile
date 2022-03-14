@@ -12,7 +12,7 @@ pipeline {
         stage('Start tests') {
             steps {
                 sh "docker-compose up -d"
-                sh 'docker attach $(docker-compose ps | grep tests | tr -s " " | cut -f 1 -d " ")'
+                sh 'docker attach $(docker-compose ps | grep tests | tr -s " " | cut -f 1 -d " ") || true'
             }
         }
         stage('Build report') {

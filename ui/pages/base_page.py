@@ -16,7 +16,7 @@ class BasePage:
         self.user = "admin@graphlabs.ru"
         self.password = "admin"
 
-    def find(self, locator, timeout=None):
+    def find(self, locator, timeout=10):
         try:
             s = self.wait(timeout).until(EC.presence_of_all_elements_located(locator))
             if len(s) == 1:
@@ -28,7 +28,7 @@ class BasePage:
             assert False, f"Element {locator} does not exist."
 
     @allure.step("Кликнуть по элементу {0}")
-    def click(self, locator, timeout=1):
+    def click(self, locator, timeout=10):
         for i in range(RETRY_COUNT):
             try:
                 self.find(locator)
@@ -40,7 +40,7 @@ class BasePage:
                     pass
         raise
 
-    def drag_and_drop(self, locator_from, locator_to, timeout=1):
+    def drag_and_drop(self, locator_from, locator_to, timeout=10):
         for i in range(RETRY_COUNT):
             try:
                 self.find(locator_from)
@@ -71,14 +71,12 @@ class BasePage:
     def get_alert(self):
         return self.driver.switch_to.alert
 
-    def switch_to_frame(self, locator, timeout=2):
+    def switch_to_frame(self, locator, timeout=12):
         self.driver.switch_to.frame(
             self.wait(timeout).until(EC.presence_of_element_located(locator))
         )
 
-    def wait(self, timeout=None):
-        if timeout is None:
-            timeout = 3
+    def wait(self, timeout=10):
         return WebDriverWait(self.driver, timeout=timeout)
 
     def get_page(self, url):

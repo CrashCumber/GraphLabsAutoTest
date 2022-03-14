@@ -21,7 +21,7 @@ class TestElementsClickability(TestUIModule18Page):
     def test_done_button(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
-        time.sleep(1)
+        time.sleep(10)
         self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
 
         ball = self.module18_page.find(self.module18_page.locators.BALL_INF0)
@@ -47,7 +47,7 @@ class TestElementsClickability(TestUIModule18Page):
     def test_help_button(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
-        time.sleep(1)
+        time.sleep(10)
         self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
 
         self.module18_page.click(self.module18_page.locators.HELP_BUTTON)
@@ -65,7 +65,7 @@ class TestElementsClickability(TestUIModule18Page):
     def test_change_color_edge_button(self, auto, color):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
-        time.sleep(1)
+        time.sleep(10)
         self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
 
         edge = (
@@ -94,11 +94,11 @@ class TestElementsClickability(TestUIModule18Page):
     def test_change_color_vertex(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
-        time.sleep(1)
+        time.sleep(10)
         self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
 
         vertex = (By.XPATH, self.module18_page.locators.vertex_path.replace("{}", "1"))
-        time.sleep(2)
+        time.sleep(7)
         self.module18_page.click(vertex, timeout=2)
         assert "fill: rgb(255, 0, 0);" in self.module18_page.find(vertex).get_attribute(
             "style"
@@ -113,7 +113,7 @@ class TestElementsClickability(TestUIModule18Page):
     def test_change_color_edge(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
-        time.sleep(1)
+        time.sleep(10)
         self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
 
         edge = (
@@ -133,7 +133,7 @@ class TestElementsDisplayed(TestUIModule18Page):
     def test_displayed_elements(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
-        time.sleep(1)
+        time.sleep(10)
         self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
 
         self.module18_page.find(self.module18_page.locators.BALL_INF0).is_displayed()
@@ -147,7 +147,7 @@ class TestElementsDisplayed(TestUIModule18Page):
     def test_displayed_task_info_text(self, auto):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
-        time.sleep(1)
+        time.sleep(10)
         self.module18_page.switch_to_frame(self.module18_page.locators.FRAME)
 
         task = self.module18_page.find(self.module18_page.locators.TASK_INFO)

@@ -36,6 +36,7 @@ def module18_page(driver):
 def auto(driver):
     page = RegPage(driver)
     page.authorization(page.user, page.password)
+    time.sleep(10)
     return BasePage(page.driver)
 
 
@@ -45,9 +46,9 @@ def module(driver):
     page.authorization(page.user, page.password)
 
     base = BasePage(page.driver)
-    time.sleep(1)
+    time.sleep(10)
     base.get_page(Module18Page.URL)
-    time.sleep(1)
+    time.sleep(10)
 
     m_page = Module18Page(page.driver)
     m_page.switch_to_frame(m_page.locators.FRAME)
