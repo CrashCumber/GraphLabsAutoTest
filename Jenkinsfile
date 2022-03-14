@@ -9,9 +9,10 @@ pipeline {
                 sh "docker-compose build"
             }
         }
-        stage('Up tests') {
+        stage('Start tests') {
             steps {
                 sh "docker-compose up -d"
+                sh 'docker attach $(docker-compose ps | grep tests | tr -s " " | cut -f 1 -d " ")'
             }
         }
         stage('Build report') {
@@ -25,7 +26,7 @@ pipeline {
                 ])
             }
         }
-        stage('Rm containers') {
+        stage('Stop system') {
             steps {
                 sh "docker-compose stop"
             }
