@@ -21,4 +21,4 @@ class RegPage(BasePage):
         password_field.clear()
         password_field.send_keys(password)
 
-        self.find(self.locators.AUTHORIZATION_BUTTON).click(timeout=10)
+        self.find(self.locators.AUTHORIZATION_BUTTON).click()
