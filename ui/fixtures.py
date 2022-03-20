@@ -1,8 +1,10 @@
 import time
 
+import allure
 import pytest
 from selenium import webdriver
 from selenium.webdriver import ChromeOptions
+from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from ui.pages.base_page import BasePage
 from ui.pages.module_18_page import Module18Page
@@ -34,6 +36,7 @@ def module18_page(driver):
 def auto(driver):
     page = RegPage(driver)
     page.authorization(page.user, page.password)
+    time.sleep(10)
     return BasePage(page.driver)
 
 
@@ -43,11 +46,12 @@ def module(driver):
     page.authorization(page.user, page.password)
 
     base = BasePage(page.driver)
-    time.sleep(1)
+    time.sleep(10)
     base.get_page(Module18Page.URL)
-    time.sleep(1)
+    time.sleep(10)
 
     m_page = Module18Page(page.driver)
+    time.sleep(5)
     m_page.switch_to_frame(m_page.locators.FRAME)
     return m_page
 
@@ -60,7 +64,8 @@ def driver(config):
     selenoid = config["selenoid"]
     if not selenoid:
         manager = ChromeDriverManager(version=version)
-        driver = webdriver.Chrome(executable_path=manager.install())
+        service = Service(manager.install())
+        driver = webdriver.Chrome(service=service)
     else:
         options = ChromeOptions()
         capabilities = {
@@ -69,7 +74,7 @@ def driver(config):
             "version": "83.0",
         }
         driver = webdriver.Remote(
-            command_executor="http://127.0.0.1:4444/wd/hub",
+            command_executor="http://selenoid:4444/wd/hub",
             options=options,
             desired_capabilities=capabilities,
         )

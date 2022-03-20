@@ -5,8 +5,8 @@ from ui.fixtures import *
 def pytest_addoption(parser):
     parser.addoption('--url', default='http://gl-backend.svtz.ru:5050')
     parser.addoption('--browser', default='chrome')
-    parser.addoption('--browser_ver', default='latest')
-    parser.addoption('--selenoid', default=False)
+    parser.addoption('--browser_ver', default='83.0.4103.14')
+    parser.addoption('--selenoid', default=True)
 
 
 @pytest.fixture(scope='session')

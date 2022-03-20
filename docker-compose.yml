@@ -1,0 +1,26 @@
+version: '3.5'
+
+networks:
+  default:
+    name: tests_network
+
+
+services:
+
+    selenoid:
+        image: aerokube/selenoid:1.10.0
+        command: ["-conf", "/etc/selenoid/browsers.json", "-container-network", "tests_network"]
+        ports:
+            - "4444:4444"
+        volumes:
+            - ./config/:/etc/selenoid/:ro
+            - /var/run/docker.sock:/var/run/docker.sock
+
+    tests:
+        build: .
+        depends_on:
+            - selenoid
+        links:
+            - selenoid
+        volumes:
+            - ./report:/report
