@@ -11,14 +11,13 @@ from tests.base_ui import BaseCase
 @pytest.mark.parametrize(
     "browser", ("Firefox", "Safari", "Chrome", "Opera")
 )
-@allure.epic("Проверка модуля построения компонент сильной связности {0}")
+@allure.epic("Проверка модуля построения компонент сильной связности")
 class TestUIModule18Page(BaseCase):
     ...
 
 
 @allure.story("Проверка кликабельности элементов")
 @pytest.mark.CLICKABILITY
-@pytest.mark.skip
 class TestElementsClickability(TestUIModule18Page):
     @allure.title("Проверка работоспособности кнопки 'Готово'")
     def test_done_button(self, auto, browser):
@@ -163,7 +162,6 @@ class TestElementsDisplayed(TestUIModule18Page):
 @allure.story(
     "Проверка корректности подсчета оценки при неверном выполнении лабораторной работы и отображения соответствующих сообщения"
 )
-@pytest.mark.skip
 @pytest.mark.LR_WORK_INCORRECT
 class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
     @allure.title(
@@ -408,7 +406,6 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
 
 
 @pytest.mark.LR_WORK_CORRECT
-@pytest.mark.skip
 @allure.story(
     "Проверка корректности подсчета оценки при верном выполнении лабораторной работы и отображения соответствующих сообщения"
 )
