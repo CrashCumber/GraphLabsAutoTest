@@ -5,8 +5,27 @@
             "83.0": {
                 "image": "selenoid/chrome:latest",
                 "port": "4444",
-                "path": "/",
-                "additionalNetworks": ["project_qa_default"]
+                "path": "/"
+            }
+        }
+    },
+    "firefox": {
+        "default": "70.0",
+        "versions": {
+            "70.0": {
+                "image": "selenoid/firefox:latest",
+                "port": "4444",
+                "path": "/wd/hub"
+            }
+        }
+    },
+    "opera": {
+        "default": "80.0",
+        "versions": {
+            "80.0": {
+                "image": "selenoid/opera:80.0",
+                "port": "4444",
+                "path": "/"
             }
         }
     }
