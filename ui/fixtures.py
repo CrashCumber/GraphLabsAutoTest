@@ -69,7 +69,7 @@ def driver(config):
         driver = webdriver.Chrome(service=service)
     else:
         kwargs = {
-            "command_executor": "http://localhost:4444/wd/hub" #selenoid
+            "command_executor": "http://selenoid:4444/wd/hub" #selenoid
         }
         options_dict = {
             "chrome": ChromeOptions,
