@@ -3,3 +3,4 @@ allure-pytest
 selenium
 webdriver-manager
 black
+pytest-xdist
