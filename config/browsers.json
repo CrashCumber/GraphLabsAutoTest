@@ -5,8 +5,47 @@
             "83.0": {
                 "image": "selenoid/chrome:latest",
                 "port": "4444",
-                "path": "/",
-                "additionalNetworks": ["project_qa_default"]
+                "path": "/"
+            }
+        }
+    },
+    "firefox": {
+        "default": "70.0",
+        "versions": {
+            "70.0": {
+                "image": "selenoid/firefox:latest",
+                "port": "4444",
+                "path": "/wd/hub"
+            }
+        }
+    },
+    "opera": {
+        "default": "80.0",
+        "versions": {
+            "80.0": {
+                "image": "selenoid/opera:80.0",
+                "port": "4444",
+                "path": "/"
+            }
+        }
+    },
+    "safari": {
+        "default": "13.1",
+        "versions": {
+            "80.0": {
+                "image": "selenoid/safari:latest",
+                "port": "4444",
+                "path": "/"
+            }
+        }
+    },
+    "edge": {
+        "default": "94.0.992.37",
+        "versions": {
+            "80.0": {
+                "image": "selenoid/edge:latest",
+                "port": "4444",
+                "path": "/"
             }
         }
     }

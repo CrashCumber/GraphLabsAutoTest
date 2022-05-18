@@ -11,6 +11,7 @@ class BaseCase:
         self.driver = driver
         self.config = config
         self.url = config["url"]
+        self.browser = config["browser"]
         self.base_page: BasePage = request.getfixturevalue("base_page")
         self.reg_page: RegPage = request.getfixturevalue("reg_page")
         self.main_page: MainPage = request.getfixturevalue("main_page")

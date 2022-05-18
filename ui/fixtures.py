@@ -3,8 +3,9 @@ import time
 import allure
 import pytest
 from selenium import webdriver
-from selenium.webdriver import ChromeOptions
+from selenium.webdriver import ChromeOptions, FirefoxOptions, FirefoxProfile
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.opera.options import Options as OperaOptions
 from webdriver_manager.chrome import ChromeDriverManager
 from ui.pages.base_page import BasePage
 from ui.pages.module_18_page import Module18Page
@@ -67,17 +68,30 @@ def driver(config):
         service = Service(manager.install())
         driver = webdriver.Chrome(service=service)
     else:
-        options = ChromeOptions()
+        kwargs = {
+            "command_executor": "http://localhost:4444/wd/hub" #selenoid
+        }
+        options_dict = {
+            "chrome": ChromeOptions,
+            "firefox": FirefoxOptions,
+            "opera": OperaOptions,
+        }
+        if browser in options_dict:
+            opt = options_dict[browser]()
+            kwargs["options"] = opt
+
         capabilities = {
             "acceptInsecureCerts": True,
-            "browserName": "chrome",
-            "version": "83.0",
+            "browserName": browser,
         }
-        driver = webdriver.Remote(
-            command_executor="http://selenoid:4444/wd/hub",
-            options=options,
-            desired_capabilities=capabilities,
-        )
+        if browser == "opera":
+            capabilities["operaOptions"] = {"binary": "/usr/bin/opera"}
+            kwargs["options"].add_experimental_option('w3c', False)
+
+        kwargs["desired_capabilities"] = capabilities
+
+        driver = webdriver.Remote(**kwargs)
+
     driver.get(url)
     driver.maximize_window()
     yield driver
