@@ -9,7 +9,7 @@ from tests.base_ui import BaseCase
 
 @pytest.mark.UI_MODULE_18
 @pytest.mark.parametrize(
-    "browser", ("Firefox", "Safari", "Chrome", "Opera")
+    "browser", ("Firefox", "Safari", "Chrome", "Opera", "Edge")
 )
 @allure.epic("Проверка модуля построения компонент сильной связности")
 class TestUIModule18Page(BaseCase):
@@ -19,7 +19,7 @@ class TestUIModule18Page(BaseCase):
 @allure.story("Проверка кликабельности элементов")
 @pytest.mark.CLICKABILITY
 class TestElementsClickability(TestUIModule18Page):
-    @allure.title("Проверка работоспособности кнопки 'Готово'")
+    @allure.title("Проверка работоспособности кнопки 'Готово' - {browser}")
     def test_done_button(self, auto, browser):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
@@ -45,7 +45,7 @@ class TestElementsClickability(TestUIModule18Page):
         ball = self.module18_page.find(self.module18_page.locators.BALL_INF0)
         assert ball.text == "0"
 
-    @allure.title("Проверка работоспособности кнопки 'Помощь'")
+    @allure.title("Проверка работоспособности кнопки 'Помощь' - {browser}")
     def test_help_button(self, auto, browser):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
@@ -63,7 +63,7 @@ class TestElementsClickability(TestUIModule18Page):
     @pytest.mark.parametrize(
         "color", ("red", "blue", "grey", "yellow", "brown", "magenta")
     )
-    @allure.title("Проверка работоспособности кнопки смены цвета ребра в {color}")
+    @allure.title("Проверка работоспособности кнопки смены цвета ребра в {color} - {browser}")
     def test_change_color_edge_button(self, auto, color, browser):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
@@ -92,7 +92,7 @@ class TestElementsClickability(TestUIModule18Page):
                 "style"
             )
 
-    @allure.title("Проверка возможности смены цвета вершины при нажатии на нее")
+    @allure.title("Проверка возможности смены цвета вершины при нажатии на нее - {browser}")
     def test_change_color_vertex(self, auto, browser):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
@@ -111,7 +111,7 @@ class TestElementsClickability(TestUIModule18Page):
             vertex
         ).get_attribute("style")
 
-    @allure.title("Проверка возможности смены цвета ребра при нажатии на него")
+    @allure.title("Проверка возможности смены цвета ребра при нажатии на него - {browser}")
     def test_change_color_edge(self, auto, browser):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
@@ -131,7 +131,7 @@ class TestElementsClickability(TestUIModule18Page):
 @pytest.mark.DISPLAYED
 @allure.story("Проверка отображения элементов")
 class TestElementsDisplayed(TestUIModule18Page):
-    @allure.title("Проверка отображения всех требуемых элементов")
+    @allure.title("Проверка отображения всех требуемых элементов - {browser}")
     def test_displayed_elements(self, auto, browser):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
@@ -145,7 +145,7 @@ class TestElementsDisplayed(TestUIModule18Page):
         self.module18_page.find(self.module18_page.locators.HELP_BUTTON).is_displayed()
         self.module18_page.find(self.module18_page.locators.BUTTONS)
 
-    @allure.title("Проверка текста задания")
+    @allure.title("Проверка текста задания - {browser}")
     def test_displayed_task_info_text(self, auto, browser):
         self.base_page = auto
         self.main_page.click(self.main_page.locators.MODULE_CSS_BUTTON)
@@ -165,7 +165,7 @@ class TestElementsDisplayed(TestUIModule18Page):
 @pytest.mark.LR_WORK_INCORRECT
 class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
     @allure.title(
-        "Выделение только КСС, состоящих из одной вершины. Отсутствие выделения циклов, образующих КСС"
+        "Выделение только КСС, состоящих из одной вершины. Отсутствие выделения циклов, образующих КСС - {browser}"
     )
     def test_first_step_error_invalid_highlight_no_cycles(self, module, browser):
         self.module18_page = module
@@ -178,7 +178,7 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         assert ball.text == "87"
 
     @allure.title(
-        "Выделение только циклов, образующих КСС. Отсутствие выделения единичных КСС"
+        "Выделение только циклов, образующих КСС. Отсутствие выделения единичных КСС - {browser}"
     )
     def test_first_step_error_invalid_highlight_no_vertices(self, module, browser):
         self.module18_page = module
@@ -200,7 +200,7 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "87"
 
-    @allure.title("Выделение вершины, которая входит в цикл, как единичную КСС")
+    @allure.title("Выделение вершины, которая входит в цикл, как единичную КСС - {browser}")
     def test_first_step_error_invalid_highlight_one_vertex(self, module, browser):
         self.module18_page = module
 
@@ -224,7 +224,7 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "87"
 
-    @allure.title("Неверное выделение циклов, образующих КСС")
+    @allure.title("Неверное выделение циклов, образующих КСС - {browser}")
     def test_first_step_error_invalid_highlight_css(self, module, browser):
         self.module18_page = module
 
@@ -250,7 +250,7 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "87"
 
-    @allure.title("Выделение ребра, которое не принадлежит ни одному циклу")
+    @allure.title("Выделение ребра, которое не принадлежит ни одному циклу - {browser}")
     def test_first_step_error_invalid_highlight_one_edge(self, module, browser):
         self.module18_page = module
 
@@ -278,7 +278,7 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         assert ball.text == "87"
 
     @allure.title(
-        "Выделение не всех присутствующих в графе вершин-стоков и вершин-истоков"
+        "Выделение не всех присутствующих в графе вершин-стоков и вершин-истоков - {browser}"
     )
     def test_first_step_error_invalid_highlight_not_all_single_vertices(self, module, browser):
         self.module18_page = module
@@ -302,7 +302,7 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "87"
 
-    @allure.title("Неверное выделение КСС три раза подряд")
+    @allure.title("Неверное выделение КСС три раза подряд - {browser}")
     def test_first_step_total_fail(self, module, browser):
         self.module18_page = module
 
@@ -347,7 +347,7 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "0"
 
-    @allure.title("Неверное выделение конденсата")
+    @allure.title("Неверное выделение конденсата - {browser}")
     def test_second_step_fail(self, module, browser):
         self.module18_page = module
         self.module18_page.get_first_step_success()
@@ -365,7 +365,7 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
         assert ball.text == "0"
 
     @allure.title(
-        "Неверное построении конденсата на втором этапе при одной истраченной попытке на первом этапе"
+        "Неверное построении конденсата на втором этапе при одной истраченной попытке на первом этапе - {browser}"
     )
     def test_second_step_fail_after_one_first_fail(self, module, browser):
         self.module18_page = module
@@ -407,7 +407,7 @@ class TestLRWorkWithIncorrectAnswer(TestUIModule18Page):
 
 @pytest.mark.LR_WORK_CORRECT
 @allure.story(
-    "Проверка корректности подсчета оценки при верном выполнении лабораторной работы и отображения соответствующих сообщения"
+    "Проверка корректности подсчета оценки при верном выполнении лабораторной работы и отображения соответствующих сообщения - {browser}"
 )
 class TestLRWorkWithCorrectAnswer(TestUIModule18Page):
     @allure.title("Верное выделение КСС на первом этапе")
@@ -435,7 +435,7 @@ class TestLRWorkWithCorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "100"
 
-    @allure.title("Верное построение конденсата на втором этапе")
+    @allure.title("Верное построение конденсата на втором этапе - {browser}")
     def test_second_step_success(self, module, browser):
         self.module18_page = module
         self.module18_page.get_first_step_success()
@@ -453,7 +453,7 @@ class TestLRWorkWithCorrectAnswer(TestUIModule18Page):
         ball = self.module18_page.check_answer()
         assert ball.text == "100"
 
-    @allure.title("Верное построение КСС со второго раза на первом этапе")
+    @allure.title("Верное построение КСС со второго раза на первом этапе - {browser}")
     def test_second_step_success_after_one_first_fail(self, module, browser):
         self.module18_page = module
 

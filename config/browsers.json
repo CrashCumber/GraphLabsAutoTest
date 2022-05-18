@@ -28,5 +28,25 @@
                 "path": "/"
             }
         }
+    },
+    "safari": {
+        "default": "13.1",
+        "versions": {
+            "80.0": {
+                "image": "selenoid/safari:latest",
+                "port": "4444",
+                "path": "/"
+            }
+        }
+    },
+    "edge": {
+        "default": "94.0.992.37",
+        "versions": {
+            "80.0": {
+                "image": "selenoid/edge:latest",
+                "port": "4444",
+                "path": "/"
+            }
+        }
     }
 }
