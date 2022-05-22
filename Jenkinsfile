@@ -4,18 +4,18 @@ pipeline {
     }
     agent any
     stages {
-        stage('Подготовка окружения для тестирования') {
+        stage('Сборка окружений') {
             steps {
                 sh "docker-compose build"
             }
         }
-        stage('Тестирование модуля') {
+        stage('Автоматизированное тестирование модуля') {
             steps {
                 sh "docker-compose up -d"
                 sh 'docker attach $(docker-compose ps | grep tests | tr -s " " | cut -f 1 -d " ") || true'
             }
         }
-        stage('Создание отчета о тестировании') {
+        stage('Сбор результатов') {
             steps {
                 allure([
                     includeProperties: false,
@@ -26,7 +26,7 @@ pipeline {
                 ])
             }
         }
-        stage('Деактивация окружения') {
+        stage('Составление отчета') {
             steps {
                 sh "docker-compose stop"
             }
