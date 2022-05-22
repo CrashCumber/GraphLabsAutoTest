@@ -72,8 +72,8 @@ class TestElementsClickability(TestUIModule18Page):
 
         edge = (
             By.XPATH,
-            self.module18_page.locators.edge_path.replace("{in}", "7").replace(
-                "{out}", "8"
+            self.module18_page.locators.edge_path.replace("{in}", "8").replace(
+                "{out}", "1"
             ),
         )
 
@@ -120,8 +120,8 @@ class TestElementsClickability(TestUIModule18Page):
 
         edge = (
             By.XPATH,
-            self.module18_page.locators.edge_path.replace("{in}", "7").replace(
-                "{out}", "8"
+            self.module18_page.locators.edge_path.replace("{in}", "8").replace(
+                "{out}", "1"
             ),
         )
         self.module18_page.click(edge)
